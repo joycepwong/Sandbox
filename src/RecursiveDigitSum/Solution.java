@@ -2,15 +2,6 @@ package RecursiveDigitSum;
 
 import java.io.*;
 import java.math.*;
-import java.security.*;
-import java.text.*;
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.function.*;
-import java.util.regex.*;
-import java.util.stream.*;
-import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toList;
 
 class Result {
 
@@ -48,10 +39,26 @@ class Result {
      * 
      */
 
-    public static int superDigit(String n, int k) {
-    // Write your code here
-
-    }
+     public static int superDigit(String n, int k) {
+        // Write your code here
+            if(k==1){
+                if(n.length()==1){
+                    return Integer.parseInt(n);
+                } else {
+                    return superDigit(Long.toString(parseAdd(n)), 1);
+                }
+            } else {
+                return superDigit(Long.toString(parseAdd(n)*k), 1);
+            }
+        }
+        
+        public static long parseAdd(String numberString){
+            BigInteger sum = new BigInteger("0");
+            for(int i=0; i<numberString.length(); i++){
+                sum = sum.add(new BigInteger(numberString.substring(i, i+1)));
+            }
+            return sum.longValue();
+        }
 
 }
 
