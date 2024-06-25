@@ -65,7 +65,7 @@ class Result {
      */
 
      public static void minimumBribes(List<Integer> q) {
-    // Write your code here
+        // Write your code here
         // Check if anyone bribed more than twice
         for(int i=0; i<q.size(); i++){
             if ((q.get(i).intValue() - i - 1)>2){
