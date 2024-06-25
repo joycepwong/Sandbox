@@ -71,9 +71,40 @@ class Result {
      * The function accepts INTEGER_ARRAY q as parameter.
      */
 
-    public static void minimumBribes(List<Integer> q) {
+     public static void minimumBribes(List<Integer> q) {
     // Write your code here
-
+        // Check if anyone bribed more than twice
+        for(int i=0; i<q.size(); i++){
+            if ((q.get(i).intValue() - i - 1)>2){
+                System.out.println("Too chaotic");
+                return;
+            }
+        }
+        // Basically, count the number of moves to undo all bribes
+        int moves = 0;
+        int startingIndex = q.size()-1;
+        while(startingIndex>0){
+            int targetIndex = startingIndex;
+            while ((targetIndex+1)!=q.get(targetIndex)){
+                // Make sure bribe is being reversed instead of bribing
+                // May need to reverse an earlier bribe first
+                int temp = q.get(targetIndex-1);
+                if(q.get(targetIndex-1)<q.get(targetIndex)){
+                    q.set(targetIndex-1, q.get(targetIndex-2));
+                    q.set(targetIndex-2, temp);
+                    moves = moves +1;
+                }
+                temp = q.get(targetIndex);
+                q.set(targetIndex, q.get(targetIndex-1));
+                q.set(targetIndex-1, temp);
+                moves = moves + 1;
+                targetIndex = targetIndex - 1;
+            }
+            if((startingIndex+1)==q.get(startingIndex)){
+                startingIndex = startingIndex - 1;
+            }
+        }
+        System.out.println(moves);
     }
 
 }
