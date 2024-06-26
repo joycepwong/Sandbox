@@ -1,5 +1,9 @@
 package QueueUsingTwoStacks;
 
+import java.io.*;
+import java.util.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.toList;
 /*
  * A queue is an abstract data type that maintains the order in 
  * which elements were added to it, allowing the oldest elements 
@@ -38,9 +42,47 @@ package QueueUsingTwoStacks;
  * the front of the queue on a new line.
  */
 
+class Result {
+
+    public static void queueTaking(List<List<Integer>> queries) {
+        Queue queue = new ArrayDeque<>();
+        for(int i=0; i<queries.size(); i++) {
+            int type = queries.get(i).get(0);
+            if(type == 1){
+                queue.offer(new Integer(queries.get(i).get(1)));
+            } else if (type == 2) {
+                queue.poll();
+            } else {
+                System.out.println(queue.peek());
+            }
+        }
+    }
+}
+
 public class Solution {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+
+        int n = Integer.parseInt(bufferedReader.readLine().trim());
+
+        List<List<Integer>> queries = new ArrayList<>();
+
+        IntStream.range(0, n).forEach(i -> {
+            try {
+                queries.add(
+                    Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
+                        .map(Integer::parseInt)
+                        .collect(toList())
+                );
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        Result.queueTaking(queries);
+
+        bufferedReader.close();
     }
 }
