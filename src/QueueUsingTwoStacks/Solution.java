@@ -1,4 +1,4 @@
-package QueueUsingTwoStacks;
+package queueusingtwostacks;
 
 import java.io.*;
 import java.util.*;

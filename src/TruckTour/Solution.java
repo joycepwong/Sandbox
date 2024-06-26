@@ -1,4 +1,4 @@
-package TruckTour;
+package trucktour;
 
 import java.io.*;
 import java.util.*;

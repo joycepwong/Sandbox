@@ -1,4 +1,4 @@
-package NewYearChaos;
+package newyearchaos;
 
 import java.io.*;
 import java.util.*;

@@ -1,4 +1,4 @@
-package RecursiveDigitSum;
+package recursivedigitsum;
 
 import java.io.*;
 import java.math.*;

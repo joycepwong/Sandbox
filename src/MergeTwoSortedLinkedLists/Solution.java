@@ -1,4 +1,4 @@
-package MergeTwoSortedLinkedLists;
+package mergetwosortedlinkedlists;
 
 import java.io.*;
 import java.util.*;
