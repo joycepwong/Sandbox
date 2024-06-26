@@ -1,12 +1,7 @@
 package MergeTwoSortedLinkedLists;
 
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
 public class Solution {
 
@@ -114,8 +109,37 @@ public class Solution {
      *
      */
     static SinglyLinkedListNode mergeLists(SinglyLinkedListNode head1, SinglyLinkedListNode head2) {
-
-
+        if(head1 == null){
+            return head2;
+        } else if(head2 == null){
+            return head1;
+        } else {
+            if(head1.data<=head2.data){
+                SinglyLinkedListNode head2Tail = head2.next;
+                SinglyLinkedListNode current = head1;
+                SinglyLinkedListNode previous = null;
+                // Find where to insert first node of head2 into head1
+                while(current!=null && head2.data>=current.data){
+                    previous = current;
+                    current = current.next;
+                }
+                previous.next = head2;
+                head2.next = current;
+                return mergeLists(head1, head2Tail);
+            } else {
+                SinglyLinkedListNode head1Tail = head1.next;
+                SinglyLinkedListNode current = head2;
+                SinglyLinkedListNode previous = null;
+                // Find where to insert first node of head1 into head2
+                while(current!=null && head1.data>=current.data){
+                    previous = current;
+                    current = current.next;
+                }
+                previous.next = head1;
+                head1.next = current;
+                return mergeLists(head2, head1Tail);
+            }
+        }
     }
 
     private static final Scanner scanner = new Scanner(System.in);
