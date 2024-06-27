@@ -1,16 +1,8 @@
 package balancedbrackets;
 
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.function.*;
-import java.util.regex.*;
 import java.util.stream.*;
-import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toList;
 
 class Result {
 
@@ -77,7 +69,43 @@ class Result {
 
     public static String isBalanced(String s) {
     // Write your code here
-
+        Stack<String> stack = new Stack<String>();
+        for(int i=0; i<s.length(); i++){
+            // if bracket at index i is an open bracket, push on stack
+            if(isOpenBracket(s.substring(i, i+1))){
+                stack.push(s.substring(i, i+1));
+            // if bracket at index i is a close bracket, compare it with
+            // the top item on the stack to see if they match
+            } else {
+                if(stack.isEmpty() || 
+                !areMatchingBrackets(stack.pop(), s.substring(i, i+1))){
+                    return "NO";
+                } 
+            }
+        }
+        if(stack.isEmpty()){
+            return "YES";
+        } else {
+            return "NO";
+        }
+    }
+    
+    private static boolean isOpenBracket(String b){
+        if(b.equals("(") || b.equals("{") || b.equals("[")){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    private static boolean areMatchingBrackets(String o, String c){
+        if((o.equals("(") && c.equals(")")) || 
+        (o.equals("{") && c.equals("}")) || 
+        (o.equals("[") && c.equals("]"))){
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
