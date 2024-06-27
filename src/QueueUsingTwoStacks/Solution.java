@@ -45,7 +45,7 @@ import static java.util.stream.Collectors.toList;
 class Result {
 
     public static void queueTaking(List<List<Integer>> queries) {
-        Queue queue = new ArrayDeque<>();
+        Queue<Integer> queue = new ArrayDeque<Integer>();
         for(int i=0; i<queries.size(); i++) {
             int type = queries.get(i).get(0);
             if(type == 1){
