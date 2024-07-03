@@ -1,15 +1,8 @@
 package pairs;
 
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.function.*;
-import java.util.regex.*;
 import java.util.stream.*;
-import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
 
@@ -53,7 +46,18 @@ class Result {
 
     public static int pairs(int k, List<Integer> arr) {
     // Write your code here
-      
+        Collections.sort(arr);
+        int numberOfPairs = 0;
+        for(int i=0; i<(arr.size()-1); i++){
+            for(int j=i+1; j<arr.size(); j++){
+                if((arr.get(j)-arr.get(i))==k){
+                    numberOfPairs++;
+                } else if((arr.get(j)-arr.get(i))>k){
+                    break;
+                }
+            }
+        }
+        return numberOfPairs;
     }
 
 }
