@@ -62,12 +62,80 @@ import java.util.*;
  * 
  * Each operation of type 3 must print the kth character on a 
  * new line.
+ * 
+ * Sample Input
+ * 8
+ * 1 abc
+ * 3 3
+ * 2 3
+ * 1 xy
+ * 3 2
+ * 4
+ * 4
+ * 3 1
+ * 
+ * Sample Output
+ * c
+ * y
+ * a
  */
+class Result {
+
+    public static void textEditorTaking(List<String[]> operations) throws IOException {
+        String s = "";
+        Stack<String[]> undoStack = new Stack<String[]>();
+        for(int i=0; i<operations.size(); i++) {
+            int type = Integer.parseInt(operations.get(i)[0]);
+            if(type == 1){
+                String strToAppend = operations.get(i)[1];
+                s = s+strToAppend;
+                String[] oppositeOperation = new String[2];
+                oppositeOperation[0] = "2";
+                oppositeOperation[1] = new Integer(strToAppend.length()).toString();
+                undoStack.push(oppositeOperation);
+            } else if (type == 2) {
+                String[] oppositeOperation = new String[2];
+                oppositeOperation[0] = "1";
+                oppositeOperation[1] = s.substring(s.length()-Integer.parseInt(operations.get(i)[1]),s.length());
+                undoStack.push(oppositeOperation);
+                s = s.substring(0, s.length()-Integer.parseInt(operations.get(i)[1]));
+            } else if (type == 3) {
+                int ordinal = Integer.parseInt(operations.get(i)[1]);
+                System.out.println(s.substring(ordinal-1, ordinal));
+            } else {
+                String[] undoOperation = undoStack.pop();
+                int undoType = Integer.parseInt(undoOperation[0]);
+                if(undoType == 1){
+                    s = s+undoOperation[1];
+                } else {
+                    s = s.substring(0, s.length()-Integer.parseInt(undoOperation[1]));
+                }
+            }
+        }
+    }
+}
+
 public class Solution {
 
-    public static void main(String[] args) {
-        /* Enter your code here. Read input from STDIN. 
-        Print output to STDOUT. Your class should be named 
-        Solution. */
+    public static void main(String[] args) throws IOException {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+
+        int n = Integer.parseInt(bufferedReader.readLine().trim());
+
+        List<String[]> operations = new ArrayList<>();
+        
+        try {
+            for(int i=0; i<n; i++){
+                String[] anOperation = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
+                operations.add(anOperation);
+            }
+        } catch (IOException ex) {
+                throw new RuntimeException(ex);
+        }
+        
+        Result.textEditorTaking(operations);
+
+        bufferedReader.close();
     }
 }
